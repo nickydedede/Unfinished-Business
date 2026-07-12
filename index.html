@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08060d">
+
+<title>Unfinished Business | For Amantle</title>
+
+<style>
+/* =========================================================
+   UNFINISHED BUSINESS
+   Made for Amantle Mabedza
+   From: Your Next Best Thing
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg: #08060d;
+    --bg-soft: #100b18;
+    --card: rgba(255,255,255,.055);
+    --border: rgba(255,255,255,.11);
+    --text: #f7f2f8;
+    --muted: #aaa2ae;
+    --pink: #ff6b9d;
+    --purple: #a875ff;
+    --gold: #f3c97a;
+    --green: #75f0b0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(circle at 20% 10%, rgba(168,117,255,.12), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(255,107,157,.09), transparent 30%),
+        var(--bg);
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+}
+
+button {
+    font: inherit;
+}
+
+::selection {
+    background: var(--pink);
+    color: white;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+#progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    z-index: 9999;
+    background: linear-gradient(90deg, var(--purple), var(--pink), var(--gold));
+}
+
+/* =========================
+   BACKGROUND PARTICLES
+========================= */
+
+#stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: white;
+    opacity: .35;
+    animation: twinkle var(--speed) infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .1; transform: scale(.7); }
+    to { opacity: .8; transform: scale(1.5); }
+}
+
+/* =========================
+   INTRO TERMINAL
+========================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    background: #050408;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+#intro.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.terminal {
+    width: min(90%, 760px);
+    border: 1px solid rgba(117,240,176,.25);
+    border-radius: 14px;
+    background: rgba(8,10,10,.92);
+    box-shadow: 0 0 80px rgba(117,240,176,.06);
+    overflow: hidden;
+}
+
+.terminal-bar {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 15px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+}
+
+.dot:nth-child(1) { background: #ff5f57; }
+.dot:nth-child(2) { background: #febc2e; }
+.dot:nth-child(3) { background: #28c840; }
+
+.terminal-title {
+    margin-left: 8px;
+    color: #777;
+    font-family: "DM Mono", monospace;
+    font-size: .72rem;
+}
+
+.terminal-content {
+    min-height: 330px;
+    padding: 28px;
+    color: var(--green);
+    font-family: "DM Mono", monospace;
+    font-size: clamp(.72rem, 2vw, .95rem);
+    line-height: 2;
+}
+
+.terminal-line {
+    opacity: 0;
+    animation: terminalAppear .3s forwards;
+}
+
+@keyframes terminalAppear {
+    to { opacity: 1; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--green);
+    vertical-align: middle;
+    animation: blink .8s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.enter-btn {
+    display: none;
+    margin-top: 20px;
+    border: 1px solid var(--green);
+    color: var(--green);
+    background: transparent;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.enter-btn:hover {
+    background: var(--green);
+    color: #050408;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+main {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+main.visible {
+    opacity: 1;
+}
+
+section {
+    min-height: 100vh;
+    padding: 100px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.container {
+    width: min(1100px, 100%);
+}
+
+.eyebrow {
+    font-family: "DM Mono", monospace;
+    color: var(--pink);
+    font-size: .75rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    font-family: "Playfair Display", serif;
+}
+
+h1 {
+    font-size: clamp(3.2rem, 10vw, 8.5rem);
+    line-height: .9;
+    letter-spacing: -.05em;
+}
+
+h2 {
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 28px;
+}
+
+.gradient-text {
+    background: linear-gradient(120deg, var(--purple), var(--pink), var(--gold));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.lead {
+    max-width: 720px;
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.9;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(45px);
+    transition: 1s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    text-align: center;
+}
+
+.hero .eyebrow {
+    margin-bottom: 30px;
+}
+
+.hero h1 span {
+    display: block;
+}
+
+.hero-sub {
+    margin: 35px auto 0;
+    max-width: 620px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "DM Mono", monospace;
+    color: #777;
+    font-size: .7rem;
+    letter-spacing: .15em;
+}
+
+.scroll-line {
+    height: 40px;
+    width: 1px;
+    background: linear-gradient(transparent, var(--pink));
+    margin: 12px auto 0;
+    animation: scrollPulse 1.5s infinite;
+}
+
+@keyframes scrollPulse {
+    50% { height: 60px; opacity: .4; }
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline {
+    margin-top: 60px;
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(var(--purple), var(--pink));
+}
+
+.timeline-item {
+    padding-left: 55px;
+    margin-bottom: 55px;
+    position: relative;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--pink);
+    box-shadow: 0 0 20px var(--pink);
+}
+
+.timeline-item small {
+    font-family: "DM Mono", monospace;
+    color: var(--pink);
+}
+
+.timeline-item h3 {
+    margin: 8px 0 12px;
+    font-size: 1.4rem;
+}
+
+.timeline-item p {
+    color: var(--muted);
+    max-width: 650px;
+    line-height: 1.8;
+}
+
+/* =========================
+   INTERACTIVE CARDS
+========================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 55px;
+}
+
+.card {
+    min-height: 270px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 270px;
+    transition: transform .8s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    background: var(--card);
+    backdrop-filter: blur(15px);
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background:
+        linear-gradient(145deg, rgba(168,117,255,.14), rgba(255,107,157,.1)),
+        var(--bg-soft);
+}
+
+.card-number {
+    font-family: "DM Mono", monospace;
+    color: var(--pink);
+}
+
+.card h3 {
+    font-size: 1.5rem;
+}
+
+.card p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.tap {
+    font-size: .7rem;
+    color: #777;
+    font-family: "DM Mono", monospace;
+}
+
+/* =========================
+   DISTANCE
+========================= */
+
+.distance-box {
+    margin-top: 60px;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: clamp(30px, 6vw, 60px);
+    background: var(--card);
+}
+
+.locations {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.location {
+    text-align: center;
+}
+
+.location-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.route {
+    flex: 1;
+    position: relative;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--pink) 0 10px,
+        transparent 10px 20px
+    );
+}
+
+.route-car {
+    position: absolute;
+    top: -14px;
+    left: 0;
+    font-size: 1.5rem;
+    animation: drive 5s ease-in-out infinite alternate;
+}
+
+@keyframes drive {
+    to { left: calc(100% - 25px); }
+}
+
+.distance-quote {
+    margin-top: 45px;
+    text-align: center;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-style: italic;
+}
+
+/* =========================
+   COMPATIBILITY SCANNER
+========================= */
+
+.scanner {
+    margin-top: 50px;
+    max-width: 700px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 35px;
+    background: rgba(0,0,0,.2);
+}
+
+.scan-row {
+    margin-bottom: 25px;
+}
+
+.scan-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: .85rem;
+}
+
+.scan-bar {
+    height: 7px;
+    background: rgba(255,255,255,.08);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.scan-fill {
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--purple), var(--pink));
+    transition: width 1.8s ease;
+}
+
+.scan-result {
+    margin-top: 30px;
+    display: none;
+    text-align: center;
+}
+
+.scan-btn,
+.choice-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: white;
+    border-radius: 100px;
+    padding: 14px 25px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.scan-btn:hover,
+.choice-btn:hover {
+    border-color: var(--pink);
+    transform: translateY(-3px);
+}
+
+/* =========================
+   BIG MESSAGE
+========================= */
+
+.statement {
+    text-align: center;
+}
+
+.statement p {
+    margin: 0 auto;
+}
+
+.big-line {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2.4rem, 7vw, 6rem);
+    line-height: 1.1;
+    max-width: 950px;
+    margin: 35px auto;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final {
+    text-align: center;
+}
+
+.final-message {
+    max-width: 720px;
+    margin: 30px auto;
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.choice-btn.primary {
+    border-color: var(--pink);
+    background: linear-gradient(120deg, var(--purple), var(--pink));
+}
+
+.response {
+    margin-top: 35px;
+    min-height: 80px;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.4rem, 4vw, 2.3rem);
+}
+
+/* =========================
+   SECRET BUTTON
+========================= */
+
+.secret {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: rgba(10,8,15,.8);
+    color: white;
+    cursor: pointer;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.secret-message {
+    position: fixed;
+    right: 20px;
+    bottom: 80px;
+    max-width: 280px;
+    padding: 18px;
+    border-radius: 15px;
+    background: #17101f;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: .85rem;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: .4s;
+    z-index: 100;
+}
+
+.secret-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   HEART EXPLOSION
+========================= */
+
+.heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    animation: heartFly 2s forwards;
+}
+
+@keyframes heartFly {
+    to {
+        transform: translate(var(--x), var(--y)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 760px) {
+
+    section {
+        padding: 85px 6%;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .locations {
+        flex-direction: column;
+    }
+
+    .route {
+        width: 2px;
+        height: 120px;
+        background: repeating-linear-gradient(
+            180deg,
+            var(--pink) 0 10px,
+            transparent 10px 20px
+        );
+    }
+
+    .route-car {
+        top: 0;
+        left: -12px;
+        animation: driveMobile 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes driveMobile {
+        to {
+            top: calc(100% - 25px);
+            left: -12px;
+        }
+    }
+
+    .terminal-content {
+        min-height: 390px;
+        padding: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+<div id="stars"></div>
+
+<!-- =========================
+     CINEMATIC INTRO
+========================= -->
+
+<div id="intro">
+    <div class="terminal">
+        <div class="terminal-bar">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="terminal-title">unfinished_business.exe</span>
+        </div>
+
+        <div class="terminal-content" id="terminalContent">
+            <span class="cursor"></span>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     MAIN EXPERIENCE
+========================= -->
+
+<main id="main">
+
+<section class="hero">
+    <div class="container reveal">
+
+        <div class="eyebrow">
+            Case File #003 • Reopened
+        </div>
+
+        <h1>
+            <span>UNFINISHED</span>
+            <span class="gradient-text">BUSINESS.</span>
+        </h1>
+
+        <p class="hero-sub">
+            Three years ago, something started.
+            Life happened. The story paused.
+            But apparently...
+            nobody actually wrote the ending.
+        </p>
+
+    </div>
+
+    <div class="scroll-hint">
+        CONTINUE THE STORY
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+
+<!-- CHAPTER ONE -->
+
+<section>
+    <div class="container reveal">
+
+        <div class="eyebrow">Chapter 01 — The Beginning</div>
+
+        <h2>Three years ago.</h2>
+
+        <p class="lead">
+            We met through Katlego Marumo.
+            And somehow, somewhere between the conversations,
+            the chaos, the flirting, the things we probably
+            shouldn't put into a public case file...
+            something else happened.
+        </p>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <small>EVENT 001</small>
+                <h3>Two people started talking.</h3>
+                <p>
+                    Nothing particularly suspicious yet.
+                    Just two people talking.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <small>EVENT 002</small>
+                <h3>The sparks start flying.</h3>
+                <p>
+                    The conversations got interesting.
+                    Very interesting.
+                    But somewhere underneath all of that,
+                    an emotional connection started forming too.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <small>EVENT 003</small>
+                <h3>Then life happened.</h3>
+                <p>
+                    Things fell apart.
+                    The conversations stopped.
+                    The story went quiet.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- RECONNECTION -->
+
+<section>
+    <div class="container reveal">
+
+        <div class="eyebrow">Chapter 02 — The Plot Twist</div>
+
+        <h2>
+            Three years later...
+            <span class="gradient-text">hello again.</span>
+        </h2>
+
+        <p class="lead">
+            I started talking to you again.
+            Being clearer about where my head was at.
+            And somehow, the phrase
+            <strong>"unfinished business"</strong>
+            became something we could both agree on.
+        </p>
+
+        <div class="cards">
+
+            <div class="card" onclick="flipCard(this)">
+                <div class="card-inner">
+
+                    <div class="card-face">
+                        <span class="card-number">01</span>
+                        <h3>The Past</h3>
+                        <span class="tap">TAP TO OPEN</span>
+                    </div>
+
+                    <div class="card-face card-back">
+                        <h3>It mattered.</h3>
+                        <p>
+                            Whatever happened three years ago
+                            wasn't meaningless to me.
+                            There was a real connection there.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card" onclick="flipCard(this)">
+                <div class="card-inner">
+
+                    <div class="card-face">
+                        <span class="card-number">02</span>
+                        <h3>The Present</h3>
+                        <span class="tap">TAP TO OPEN</span>
+                    </div>
+
+                    <div class="card-face card-back">
+                        <h3>I'm curious.</h3>
+                        <p>
+                            Not just about who you were then.
+                            I want to know the intelligent,
+                            interesting person you are now.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card" onclick="flipCard(this)">
+                <div class="card-inner">
+
+                    <div class="card-face">
+                        <span class="card-number">03</span>
+                        <h3>The Possibility</h3>
+                        <span class="tap">TAP TO OPEN</span>
+                    </div>
+
+                    <div class="card-face card-back">
+                        <h3>What if?</h3>
+                        <p>
+                            What if we actually took the time
+                            to discover what this could become?
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- DISTANCE -->
+
+<section>
+    <div class="container reveal">
+
+        <div class="eyebrow">Chapter 03 — The Complication</div>
+
+        <h2>Okay. There's one small issue.</h2>
+
+        <p class="lead">
+            Different schools.
+            Different places.
+            Approximately three hours between us.
+        </p>
+
+        <div class="distance-box">
+
+            <div class="locations">
+
+                <div class="location">
+                    <div class="location-icon">📍</div>
+                    <strong>Me</strong>
+                </div>
+
+                <div class="route">
+                    <span class="route-car">🚗</span>
+                </div>
+
+                <div class="location">
+                    <div class="location-icon">📍</div>
+                    <strong>Amantle</strong>
+                </div>
+
+            </div>
+
+            <div class="distance-quote">
+                “Far enough to require effort.<br>
+                Not far enough to make it impossible.”
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- COMPATIBILITY -->
+
+<section>
+    <div class="container reveal">
+
+        <div class="eyebrow">Highly Scientific Research</div>
+
+        <h2>Running compatibility diagnostics...</h2>
+
+        <p class="lead">
+            This system is extremely advanced.
+            Definitely not coded by someone
+            who already wanted a specific answer.
+        </p>
+
+        <div class="scanner">
+
+            <button class="scan-btn" id="scanButton" onclick="runScan()">
+                RUN DIAGNOSTIC
+            </button>
+
+            <div id="scanData" style="display:none; margin-top:35px;">
+
+                <div class="scan-row">
+                    <div class="scan-label">
+                        <span>Intellectual attraction</span>
+                        <span>97%</span>
+                    </div>
+                    <div class="scan-bar">
+                        <div class="scan-fill" data-width="97%"></div>
+                    </div>
+                </div>
+
+                <div class="scan-row">
+                    <div class="scan-label">
+                        <span>Unfinished business</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="scan-bar">
+                        <div class="scan-fill" data-width="100%"></div>
+                    </div>
+                </div>
+
+                <div class="scan-row">
+                    <div class="scan-label">
+                        <span>Potential</span>
+                        <span>Calculating...</span>
+                    </div>
+                    <div class="scan-bar">
+                        <div class="scan-fill" data-width="94%"></div>
+                    </div>
+                </div>
+
+                <div class="scan-row">
+                    <div class="scan-label">
+                        <span>Probability of marriage jokes continuing</span>
+                        <span>1000%</span>
+                    </div>
+                    <div class="scan-bar">
+                        <div class="scan-fill" data-width="100%"></div>
+                    </div>
+                </div>
+
+                <div class="scan-result" id="scanResult">
+                    <strong>RESULT:</strong><br><br>
+                    Further investigation is strongly recommended. 👀
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- REAL MESSAGE -->
+
+<section class="statement">
+    <div class="container reveal">
+
+        <div class="eyebrow">Okay. Jokes aside.</div>
+
+        <div class="big-line">
+            I think this could be
+            <span class="gradient-text">something really nice.</span>
+        </div>
+
+        <p class="lead">
+            I'm not trying to rush you.
+            I'm not trying to force a label onto something
+            before we've even had the chance to discover it.
+        </p>
+
+    </div>
+</section>
+
+
+<section class="statement">
+    <div class="container reveal">
+
+        <div class="eyebrow">What I Actually Mean</div>
+
+        <div class="big-line">
+            I'm interested in
+            <span class="gradient-text">you.</span>
+        </div>
+
+        <p class="lead">
+            Not just the version of you I knew three years ago.
+            I want to know who Amantle is now.
+            The intelligent girl.
+            The person behind the jokes.
+            The thoughts you don't tell everybody.
+            The dreams you're building.
+            The things that make you laugh.
+            The things that matter to you.
+        </p>
+
+    </div>
+</section>
+
+
+<!-- FINAL -->
+
+<section class="final">
+    <div class="container reveal">
+
+        <div class="eyebrow">Final Chapter — For Now</div>
+
+        <h2>
+            So, Amantle Mabedza...
+        </h2>
+
+        <p class="final-message">
+            This isn't me asking you to marry me.
+            <br><br>
+            Not today, anyway. 😂
+            <br><br>
+            This is just me saying that I think
+            there's something here worth exploring.
+            I want to get to know you properly.
+            No pressure. No rushing.
+            Just two people seeing where a genuine connection
+            might take them.
+            <br><br>
+            Because maybe the story didn't end three years ago.
+            <br><br>
+            Maybe it just needed a better chapter.
+        </p>
+
+        <div class="choices">
+
+            <button
+                class="choice-btn primary"
+                onclick="chooseYes(event)">
+                Let's see where this goes 👀
+            </button>
+
+            <button
+                class="choice-btn"
+                onclick="chooseMarriage(event)">
+                About that marriage proposal... 😂
+            </button>
+
+        </div>
+
+        <div class="response" id="response"></div>
+
+        <p style="
+            margin-top:70px;
+            color:#777;
+            font-family:'DM Mono', monospace;
+            font-size:.75rem;
+        ">
+            — your next best thing.
+        </p>
+
+    </div>
+</section>
+
+</main>
+
+
+<button class="secret" onclick="toggleSecret()" title="Secret">
+    ?
+</button>
+
+<div class="secret-message" id="secretMessage">
+    Secret message unlocked:
+    <br><br>
+    If you found this, you're officially too curious.
+    <br><br>
+    I like that about you. 🤍
+</div>
+
+
+<script>
+
+/* =========================
+   CREATE STARS
+========================= */
+
+const stars = document.getElementById("stars");
+
+for (let i = 0; i < 90; i++) {
+
+    const star = document.createElement("span");
+
+    star.className = "star";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.setProperty(
+        "--speed",
+        (2 + Math.random() * 5) + "s"
+    );
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   TERMINAL INTRO
+========================= */
+
+const terminalLines = [
+    "> Initializing archived connection...",
+    "> Searching memory database...",
+    "> Connection found.",
+    "",
+    "> Name: AMANTLE MABEDZA",
+    "> First detected: approximately 3 years ago",
+    "> Previous status: connection interrupted",
+    "",
+    "> Scanning current status...",
+    "> Mutual contact detected.",
+    "> Flirting detected.",
+    "> Marriage jokes detected.",
+    "> Unfinished business detected.",
+    "",
+    "> STATUS: CASE REOPENED."
+];
+
+const terminal = document.getElementById("terminalContent");
+
+let lineIndex = 0;
+
+function typeTerminalLine() {
+
+    if (lineIndex >= terminalLines.length) {
+
+        const button = document.createElement("button");
+
+        button.className = "enter-btn";
+        button.innerText = "OPEN CASE FILE →";
+        button.style.display = "inline-block";
+
+        button.onclick = enterSite;
+
+        terminal.appendChild(button);
+
+        return;
+    }
+
+    const line = document.createElement("div");
+
+    line.className = "terminal-line";
+    line.textContent = terminalLines[lineIndex];
+
+    terminal.insertBefore(
+        line,
+        terminal.querySelector(".cursor")
+    );
+
+    lineIndex++;
+
+    setTimeout(
+        typeTerminalLine,
+        lineIndex < 4 ? 350 : 220
+    );
+}
+
+setTimeout(typeTerminalLine, 700);
+
+
+function enterSite() {
+
+    document.getElementById("intro").classList.add("hide");
+
+    document.getElementById("main").classList.add("visible");
+
+    setTimeout(() => {
+        document.body.style.overflow = "auto";
+    }, 500);
+}
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const observer = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.18
+    }
+);
+
+document.querySelectorAll(".reveal")
+    .forEach(el => observer.observe(el));
+
+
+/* =========================
+   SCROLL PROGRESS
+========================= */
+
+window.addEventListener("scroll", () => {
+
+    const scrollTop =
+        document.documentElement.scrollTop;
+
+    const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const progress =
+        (scrollTop / height) * 100;
+
+    document.getElementById("progress")
+        .style.width = progress + "%";
+});
+
+
+/* =========================
+   CARDS
+========================= */
+
+function flipCard(card) {
+    card.classList.toggle("flipped");
+}
+
+
+/* =========================
+   COMPATIBILITY SCANNER
+========================= */
+
+function runScan() {
+
+    const button =
+        document.getElementById("scanButton");
+
+    const data =
+        document.getElementById("scanData");
+
+    button.innerText = "SCANNING...";
+
+    data.style.display = "block";
+
+    setTimeout(() => {
+
+        document
+            .querySelectorAll(".scan-fill")
+            .forEach(bar => {
+
+                bar.style.width =
+                    bar.dataset.width;
+
+            });
+
+    }, 300);
+
+
+    setTimeout(() => {
+
+        document.getElementById("scanResult")
+            .style.display = "block";
+
+        button.innerText =
+            "DIAGNOSTIC COMPLETE ✓";
+
+    }, 2300);
+}
+
+
+/* =========================
+   FINAL CHOICES
+========================= */
+
+function chooseYes(event) {
+
+    document.getElementById("response")
+        .innerHTML =
+        "Interesting choice, Miss Mabedza.<br>Investigation officially continues. 👀❤️";
+
+    heartExplosion(
+        event.clientX,
+        event.clientY
+    );
+}
+
+
+function chooseMarriage(event) {
+
+    document.getElementById("response")
+        .innerHTML =
+        "WAIT— 😭<br>I specifically said this wasn't a marriage proposal.<br><br>But since you brought it up... 💍😂";
+
+    heartExplosion(
+        event.clientX,
+        event.clientY
+    );
+}
+
+
+/* =========================
+   HEART EXPLOSION
+========================= */
+
+function heartExplosion(x, y) {
+
+    const symbols =
+        ["❤️", "🤍", "✨", "💗", "💍"];
+
+    for (let i = 0; i < 35; i++) {
+
+        const heart =
+            document.createElement("span");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+        heart.style.left = x + "px";
+        heart.style.top = y + "px";
+
+        heart.style.setProperty(
+            "--x",
+            (Math.random() * 500 - 250) + "px"
+        );
+
+        heart.style.setProperty(
+            "--y",
+            (Math.random() * -500 - 50) + "px"
+        );
+
+        document.body.appendChild(heart);
+
+        setTimeout(
+            () => heart.remove(),
+            2000
+        );
+    }
+}
+
+
+/* =========================
+   SECRET MESSAGE
+========================= */
+
+function toggleSecret() {
+
+    document.getElementById("secretMessage")
+        .classList.toggle("show");
+
+}
+
+</script>
+
+</body>
+  </html>
