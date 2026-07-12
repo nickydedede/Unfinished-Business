@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Letter For Amantle</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Mono:wght@400&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+
+:root {
+
+--bg:#08060d;
+--paper:#fff8ef;
+--ink:#241b25;
+
+--pink:#ff6b9d;
+--purple:#a875ff;
+--gold:#f3c97a;
+
+--muted:#aaa2ae;
+
+}
+
+
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+}
+
+
+
+body{
+
+min-height:100vh;
+
+background:
+
+radial-gradient(
+circle at top,
+rgba(168,117,255,.18),
+transparent 40%
+),
+
+radial-gradient(
+circle at bottom,
+rgba(255,107,157,.15),
+transparent 40%
+),
+
+var(--bg);
+
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-family:"Inter",sans-serif;
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+
+
+#stars{
+
+position:fixed;
+
+inset:0;
+
+z-index:-1;
+
+}
+
+
+
+.star{
+
+position:absolute;
+
+width:2px;
+
+height:2px;
+
+background:white;
+
+border-radius:50%;
+
+opacity:.4;
+
+}
+
+
+
+.container{
+
+width:min(900px,90%);
+
+text-align:center;
+
+}
+
+
+
+.eyebrow{
+
+font-family:"DM Mono";
+
+font-size:.7rem;
+
+letter-spacing:.25em;
+
+color:var(--pink);
+
+margin-bottom:30px;
+
+}
+
+
+
+h1{
+
+font-family:"Playfair Display";
+
+font-size:
+
+clamp(3rem,8vw,6rem);
+
+line-height:1;
+
+}
+
+
+
+.gradient{
+
+background:
+
+linear-gradient(
+120deg,
+var(--purple),
+var(--pink),
+var(--gold)
+);
+
+background-clip:text;
+
+color:transparent;
+
+}
+
+
+
+.intro{
+
+margin-top:25px;
+
+color:var(--muted);
+
+line-height:1.8;
+
+}
+
+
+
+.seal{
+
+margin:50px auto;
+
+width:110px;
+
+height:110px;
+
+border-radius:50%;
+
+background:
+
+linear-gradient(
+135deg,
+var(--pink),
+var(--purple)
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:2rem;
+
+cursor:pointer;
+
+box-shadow:
+
+0 0 40px rgba(255,107,157,.4);
+
+transition:.5s;
+
+}
+
+
+
+.seal:hover{
+
+transform:
+
+scale(1.1)
+rotate(10deg);
+
+}
+
+
+
+.letter{
+
+display:none;
+
+margin-top:50px;
+
+background:var(--paper);
+
+color:var(--ink);
+
+border-radius:15px;
+
+padding:
+
+clamp(30px,7vw,70px);
+
+
+text-align:left;
+
+box-shadow:
+
+0 30px 80px rgba(0,0,0,.4);
+
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+
+.letter::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+background:
+
+linear-gradient(
+90deg,
+rgba(0,0,0,.03) 1px,
+transparent 1px
+),
+
+linear-gradient(
+rgba(0,0,0,.03) 1px,
+transparent 1px
+);
+
+background-size:
+
+25px 25px;
+
+pointer-events:none;
+
+}
+
+
+
+.letter-content{
+
+position:relative;
+
+z-index:2;
+
+}
+
+
+
+.date{
+
+font-family:"DM Mono";
+
+font-size:.7rem;
+
+opacity:.5;
+
+margin-bottom:30px;
+
+}
+
+
+
+.letter h2{
+
+font-family:"Caveat";
+
+font-size:
+
+clamp(2rem,5vw,3rem);
+
+margin-bottom:30px;
+
+}
+
+
+
+.message{
+
+font-family:"Caveat";
+
+font-size:
+
+clamp(1.3rem,3vw,1.8rem);
+
+line-height:1.8;
+
+white-space:pre-line;
+
+}
+
+
+
+.signature{
+
+margin-top:50px;
+
+font-family:"Caveat";
+
+font-size:2rem;
+
+text-align:right;
+
+}
+
+
+
+.final-buttons{
+
+display:none;
+
+margin-top:40px;
+
+}
+
+
+
+.button{
+
+display:inline-block;
+
+padding:
+
+15px 30px;
+
+border-radius:100px;
+
+border:1px solid var(--pink);
+
+background:
+
+rgba(255,107,157,.1);
+
+color:white;
+
+text-decoration:none;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+
+.button:hover{
+
+background:var(--pink);
+
+transform:translateY(-4px);
+
+}
+
+
+
+.heart{
+
+position:fixed;
+
+font-size:20px;
+
+animation:
+
+float 2s forwards;
+
+pointer-events:none;
+
+}
+
+
+
+@keyframes float{
+
+to{
+
+transform:
+
+translateY(-300px)
+rotate(360deg);
+
+opacity:0;
+
+}
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div id="stars"></div>
+
+
+
+<div class="container">
+
+
+<div class="eyebrow">
+PRIVATE MESSAGE // AMANTLE.M
+</div>
+
+
+<h1>
+
+A letter for
+
+<span class="gradient">
+Amantle.
+
+</span>
+
+</h1>
+
+
+<p class="intro">
+
+A message that wasn't meant to be rushed.
+
+Click the seal when you're ready.
+
+</p>
+
+
+
+<div class="seal" onclick="openLetter()">
+
+✉️
+
+</div>
+
+
+
+
+<div class="letter" id="letter">
+
+
+<div class="letter-content">
+
+
+<div class="date">
+
+CASE FILE #003 — PERSONAL NOTE
+
+</div>
+
+
+
+<h2>
+Dear Amantle,
+</h2>
+
+
+
+<div class="message" id="typing"></div>
+
+
+
+<div class="signature">
+
+— Your next best thing ❤️
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="final-buttons" id="buttons">
+
+
+<a href="memories.html" class="button">
+
+← Back to memories
+
+</a>
+
+
+&nbsp;&nbsp;
+
+
+<a href="index.html" class="button">
+
+Return to beginning →
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+// STARS
+
+const stars =
+document.getElementById("stars");
+
+
+for(let i=0;i<90;i++){
+
+let s=document.createElement("span");
+
+s.className="star";
+
+s.style.left=
+Math.random()*100+"%";
+
+
+s.style.top=
+Math.random()*100+"%";
+
+
+stars.appendChild(s);
+
+}
+
+
+
+
+// LETTER
+
+const text = 
+`
+I don't know if you expected a whole website when you clicked around...
+
+but here we are 😂
+
+
+The funny thing is that three years ago, neither of us probably knew that a simple conversation would create something that would still feel unfinished years later.
+
+
+What I love about reconnecting with you is that it doesn't feel like I am trying to recreate the past.
+
+
+It feels like I am getting to know you again.
+
+
+The person you are now.
+
+
+The intelligent girl with the thoughts, dreams, jokes, and perspectives that make you you.
+
+
+I admire your mind.
+
+
+I admire the way you think.
+
+
+And I love that even after all this time, talking to you still feels natural.
+
+
+I don't know exactly where this goes.
+
+
+And honestly, I don't want to pretend I have everything figured out.
+
+
+But I do know one thing:
+
+
+I would genuinely like the chance to discover it.
+
+
+No rushing.
+
+
+No pressure.
+
+
+Just two people taking the time to know each other properly.
+
+
+Maybe this isn't the continuation of an old story.
+
+
+Maybe it is the beginning of a better chapter.
+
+
+And maybe...
+
+
+we really did have some unfinished business.
+`;
+
+
+
+let index=0;
+
+
+
+function openLetter(){
+
+
+document
+.querySelector(".seal")
+.style.display="none";
+
+
+document
+.getElementById("letter")
+.style.display="block";
+
+
+let output=
+document.getElementById("typing");
+
+
+let timer=setInterval(()=>{
+
+
+output.textContent += text[index];
+
+
+index++;
+
+
+if(index>=text.length){
+
+clearInterval(timer);
+
+
+document
+.getElementById("buttons")
+.style.display="block";
+
+
+}
+
+
+},25);
+
+
+
+createHearts();
+
+
+}
+
+
+
+function createHearts(){
+
+
+for(let i=0;i<30;i++){
+
+
+let h=document.createElement("span");
+
+
+h.className="heart";
+
+
+h.innerHTML="❤️";
+
+
+h.style.left=
+Math.random()*100+"vw";
+
+
+h.style.bottom="0";
+
+
+h.style.animationDelay=
+Math.random()*2+"s";
+
+
+document.body.appendChild(h);
+
+
+setTimeout(()=>{
+
+h.remove();
+
+},2500);
+
+
+}
+
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
