@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Memory Archive | Amantle</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+
+:root {
+
+    --bg:#08060d;
+    --card:#120d1c;
+    --text:#f8f4fa;
+    --muted:#aaa2ae;
+
+    --pink:#ff6b9d;
+    --purple:#a875ff;
+    --gold:#f3c97a;
+    --green:#75f0b0;
+
+}
+
+
+* {
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+
+body {
+
+    min-height:100vh;
+
+    background:
+
+    radial-gradient(
+        circle at top,
+        rgba(168,117,255,.15),
+        transparent 40%
+    ),
+
+    radial-gradient(
+        circle at bottom,
+        rgba(255,107,157,.12),
+        transparent 40%
+    ),
+
+    var(--bg);
+
+
+    color:var(--text);
+
+    font-family:"Inter",sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+
+
+#stars {
+
+    position:fixed;
+    inset:0;
+    z-index:-1;
+
+}
+
+
+.star {
+
+    position:absolute;
+
+    width:2px;
+    height:2px;
+
+    background:white;
+
+    border-radius:50%;
+
+    opacity:.4;
+
+    animation:
+    twinkle 3s infinite alternate;
+
+}
+
+
+@keyframes twinkle {
+
+    from {
+        opacity:.1;
+    }
+
+    to {
+        opacity:.8;
+    }
+
+}
+
+
+
+.container {
+
+    width:min(1100px,90%);
+
+    margin:auto;
+
+}
+
+
+
+section {
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:80px 0;
+
+}
+
+
+
+.reveal {
+
+    opacity:0;
+
+    transform:
+    translateY(40px);
+
+    transition:
+    1s ease;
+
+}
+
+
+.reveal.active {
+
+    opacity:1;
+
+    transform:
+    translateY(0);
+
+}
+
+
+
+.eyebrow {
+
+    color:var(--pink);
+
+    font-family:"DM Mono";
+
+    letter-spacing:.2em;
+
+    font-size:.75rem;
+
+    margin-bottom:25px;
+
+}
+
+
+
+h1,h2 {
+
+    font-family:
+    "Playfair Display";
+
+}
+
+
+
+h1 {
+
+    font-size:
+    clamp(3rem,10vw,7rem);
+
+    line-height:.95;
+
+}
+
+
+
+h2 {
+
+    font-size:
+    clamp(2.5rem,7vw,5rem);
+
+}
+
+
+
+.gradient {
+
+    background:
+    linear-gradient(
+        120deg,
+        var(--purple),
+        var(--pink),
+        var(--gold)
+    );
+
+    color:transparent;
+
+    background-clip:text;
+
+}
+
+
+
+.lead {
+
+    margin-top:30px;
+
+    max-width:700px;
+
+    color:var(--muted);
+
+    line-height:2;
+
+    font-size:1.1rem;
+
+}
+
+
+/* TERMINAL */
+
+.archive {
+
+    margin-top:60px;
+
+    border:
+
+    1px solid
+    rgba(255,255,255,.12);
+
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    background:
+
+    rgba(255,255,255,.03);
+
+    backdrop-filter:blur(15px);
+
+}
+
+
+
+.archive-header {
+
+    padding:20px;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.1);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-family:"DM Mono";
+
+    color:var(--muted);
+
+    font-size:.7rem;
+
+}
+
+
+
+.status {
+
+    color:var(--green);
+
+}
+
+
+
+.gallery {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:2px;
+
+}
+
+
+
+.frame {
+
+    aspect-ratio:4/3;
+
+    position:relative;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #0e0917,
+        #171020
+    );
+
+    overflow:hidden;
+
+}
+
+
+
+.scan {
+
+    position:absolute;
+
+    height:2px;
+
+    left:0;
+
+    right:0;
+
+    background:
+    var(--pink);
+
+    box-shadow:
+    0 0 20px var(--pink);
+
+    animation:
+    scan 2s linear infinite;
+
+}
+
+
+
+@keyframes scan {
+
+    from {
+
+        top:0;
+
+    }
+
+
+    to {
+
+        top:100%;
+
+    }
+
+}
+
+
+
+.frame-content {
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:15px;
+
+}
+
+
+
+.frame-icon {
+
+    font-size:3rem;
+
+    color:
+    rgba(255,255,255,.2);
+
+}
+
+
+
+.loading {
+
+    font-family:"DM Mono";
+
+    font-size:.65rem;
+
+    color:#777;
+
+}
+
+
+
+.result {
+
+    display:none;
+
+    text-align:center;
+
+    padding:50px 20px;
+
+}
+
+
+
+.result h3 {
+
+    font-family:
+    "Playfair Display";
+
+    font-size:
+    3rem;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.result p {
+
+    color:var(--muted);
+
+}
+
+
+
+.future {
+
+    display:none;
+
+    text-align:center;
+
+    margin-top:90px;
+
+}
+
+
+
+.future h2 {
+
+    margin-bottom:30px;
+
+}
+
+
+
+.future-text {
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    line-height:2;
+
+}
+
+
+
+.button {
+
+    display:inline-block;
+
+    margin-top:40px;
+
+    padding:15px 30px;
+
+    border-radius:100px;
+
+    border:1px solid var(--pink);
+
+    color:white;
+
+    text-decoration:none;
+
+    background:
+
+    rgba(255,107,157,.1);
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+
+
+.button:hover {
+
+    transform:translateY(-5px);
+
+    background:var(--pink);
+
+}
+
+
+
+.future-frame {
+
+    margin:70px auto;
+
+    max-width:600px;
+
+    min-height:400px;
+
+    border:
+
+    1px solid rgba(255,255,255,.15);
+
+    border-radius:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(255,107,157,.12),
+        transparent
+    );
+
+}
+
+
+
+.future-frame span {
+
+    font-size:4rem;
+
+    color:var(--gold);
+
+}
+
+
+
+.future-frame h3 {
+
+    margin-top:25px;
+
+    font-family:"DM Mono";
+
+    letter-spacing:.1em;
+
+}
+
+
+
+.future-frame p {
+
+    margin-top:25px;
+
+    font-family:
+    "Playfair Display";
+
+    font-size:2rem;
+
+}
+
+
+
+.back {
+
+    margin-top:60px;
+
+}
+
+
+
+@media(max-width:700px){
+
+
+.gallery {
+
+    grid-template-columns:1fr;
+
+}
+
+
+.future-frame p {
+
+    font-size:1.5rem;
+
+}
+
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div id="stars"></div>
+
+
+<section>
+
+<div class="container">
+
+
+<div class="reveal">
+
+
+<div class="eyebrow">
+CHAPTER 04 — THE ARCHIVES
+</div>
+
+
+<h1>
+
+The Memory
+<span class="gradient">
+Archive.
+
+</span>
+
+</h1>
+
+
+<p class="lead">
+
+Every good story has memories.
+
+So naturally...
+
+I searched ours.
+
+</p>
+
+
+
+<div class="archive">
+
+
+<div class="archive-header">
+
+<span>
+MEMORY_DATABASE.exe
+</span>
+
+
+<span class="status" id="status">
+SEARCHING...
+</span>
+
+
+</div>
+
+
+
+<div class="gallery">
+
+
+<div class="frame">
+
+<div class="scan"></div>
+
+<div class="frame-content">
+
+<span class="frame-icon">
+◌
+</span>
+
+<span class="loading">
+LOCATING IMAGE...
+</span>
+
+</div>
+
+</div>
+
+
+<div class="frame">
+
+<div class="scan"></div>
+
+<div class="frame-content">
+
+<span class="frame-icon">
+◌
+</span>
+
+<span class="loading">
+LOCATING IMAGE...
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="frame">
+
+<div class="scan"></div>
+
+<div class="frame-content">
+
+<span class="frame-icon">
+◌
+</span>
+
+<span class="loading">
+LOCATING IMAGE...
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="frame">
+
+<div class="scan"></div>
+
+<div class="frame-content">
+
+<span class="frame-icon">
+◌
+</span>
+
+<span class="loading">
+LOCATING IMAGE...
+</span>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="result" id="result">
+
+<h3>
+No memories found.
+</h3>
+
+
+<p>
+
+No photos.
+<br>
+No saved moments.
+<br>
+No shared gallery.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="future" id="future">
+
+
+<h2>
+
+And honestly...
+
+that's okay.
+
+</h2>
+
+
+<p class="future-text">
+
+Because not every empty space means something is missing.
+
+<br><br>
+
+Sometimes it means something hasn't happened yet.
+
+<br><br>
+
+We don't have pictures of adventures together.
+
+We don't have random moments captured.
+
+We don't have memories filling these frames.
+
+<br><br>
+
+But maybe that's actually beautiful.
+
+<br><br>
+
+Because instead of looking backwards...
+
+maybe we get the chance to create something worth remembering.
+
+</p>
+
+
+
+<button class="button" onclick="develop()">
+
+DEVELOP THE FUTURE →
+
+</button>
+
+
+
+<div class="future-frame" id="futureFrame">
+
+
+<span>
+✦
+</span>
+
+
+<h3>
+PHOTO NOT TAKEN YET
+</h3>
+
+
+<p>
+
+Maybe we'll give these frames
+something to hold someday.
+
+</p>
+
+
+</div>
+
+
+
+<a href="index.html" class="button back">
+
+RETURN TO CASE FILE →
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<script>
+
+
+// CREATE STARS
+
+const stars =
+document.getElementById("stars");
+
+
+for(let i=0;i<100;i++){
+
+let star =
+document.createElement("span");
+
+star.className="star";
+
+star.style.left =
+Math.random()*100+"%";
+
+
+star.style.top =
+Math.random()*100+"%";
+
+
+star.style.animationDelay =
+Math.random()*5+"s";
+
+
+stars.appendChild(star);
+
+}
+
+
+
+// REVEAL
+
+const observer =
+new IntersectionObserver(
+entries=>{
+
+entries.forEach(e=>{
+
+if(e.isIntersecting){
+
+e.target.classList.add("active");
+
+}
+
+});
+
+});
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(x=>observer.observe(x));
+
+
+
+
+// SEARCH ANIMATION
+
+
+setTimeout(()=>{
+
+
+document
+.querySelectorAll(".loading")
+.forEach(x=>{
+
+x.innerText =
+"NO FILE FOUND";
+
+});
+
+
+document.getElementById("status")
+.innerText =
+"0 MEMORIES FOUND";
+
+
+
+document
+.querySelectorAll(".scan")
+.forEach(x=>{
+
+x.style.animation="none";
+
+});
+
+
+
+document
+.getElementById("result")
+.style.display="block";
+
+
+},4000);
+
+
+
+
+setTimeout(()=>{
+
+
+document
+.getElementById("future")
+.style.display="block";
+
+
+},5200);
+
+
+
+
+// FUTURE BUTTON
+
+
+function develop(){
+
+
+document
+.getElementById("futureFrame")
+.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
